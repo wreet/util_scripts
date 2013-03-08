@@ -66,7 +66,7 @@ class Email
 	def initialize()
   	# go ahead and initialize a connection to the inbox
   	imap = Net::IMAP.new('imap.gmail.com', 993, usessl = true, certs = nil, verify = false);
-  	imap.login('helpdesk@americanfinancing.net', 'HJG%shshw1093we9');
+  	imap.login('email', 'password');
   	imap.select('INBOX');
   	# we should have a imapnection now, if not something got fucked, exit
 		# .. but if we didn't exit, search the box
@@ -179,7 +179,7 @@ class DB
 	# handle DB functionality we will need, in this case job insertion
 	attr_accessor :con;
 	def initialize 
-		@con = TinyTds::Client.new(:username => 'sa', :password => 'Afc3151m', :host => '192.168.100.170');
+		@con = TinyTds::Client.new(:username => 'user', :password => 'pass', :host => '192.168.100.170');
 	end; # end constructor
 
 	def execQuery(sql)
