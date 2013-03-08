@@ -19,6 +19,9 @@ require 'rubygems';
 require 'net/imap';
 require 'mail';
 require 'tiny_tds';
+# include the custom email script for accounting
+load '/root/dev/email_accounting.rb';
+
 
 class Job
 	# the Job class wil handle storing the job data that we parse from the IMAP 
@@ -26,7 +29,7 @@ class Job
 	attr_accessor :employee, :title, :body, :date, :priority; # out of obj access
 	def initialize(employee, title, body, date, priority, type)
 		@title = title.gsub(/'/, '');
-		@employee = employee;
+		@employee = employee[0];
 		@body = body.gsub(/'/, '');
 		@date = date;
 		@priority = priority;	
@@ -101,6 +104,10 @@ class Email
 				end;
 			else 
 				type = 1;
+			end;
+			# accounting type check, if 2, email accounting group
+			if type == 2
+				Emailer.new('localhost', 25, title);
 			end;
 			p = body.to_s.split(/\n+/)[0].downcase;
 			# check if a priority was included
@@ -190,6 +197,7 @@ class AddJobs
 	e = Email.new;
 	e.jobs.each { |job| 
 		job.insertJob;
+		puts "Added #{job.title} at #{Time.now}"; 
 	}
 end; # end AddJobs class 
 
