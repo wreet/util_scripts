@@ -43,7 +43,6 @@ class FindHosts
 					# this would mean 0% packet loss, which since we only send one packet
 					# is good enough. 
 					live_hosts << tip;
-					puts "[+] #{tip} is up"; 
 				end;
 			};
 		end;
