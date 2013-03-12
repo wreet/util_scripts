@@ -38,15 +38,16 @@ class FindHosts
 		threads = Array.new;
 		for ip in ips
 			threads << Thread.new(ip) { |tip|
-			out = `ping -qc1 -w 1 #{tip}`;
-			if not out =~ /100%/
-				# this would mean 0% packet loss, which since we only send one packet
-				# is good enough. 
-				live_hosts << tip;
-				puts "[+] #{tip} is up"; 
-			end;
-			}
-		end;	
+				out = `ping -qc1 -w 1 #{tip}`;
+				if not out =~ /100%/
+					# this would mean 0% packet loss, which since we only send one packet
+					# is good enough. 
+					live_hosts << tip;
+					puts "[+] #{tip} is up"; 
+				end;
+			};
+		end;
+		threads.each { |t| t.join};	
 		return live_hosts;
 	end; # end findHosts method
 end; # end FindHosts class
