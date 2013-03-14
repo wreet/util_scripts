@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 ###############################################################################
-# Collect Hosts 0.1 by Chase Higins
+# Collect Hosts 0.1.2b by Chase Higins 
+# Windows Support by Jon Cornwell
 ###############################################################################
 # As the name would imply, this script will scan the local network and 
 # retrieve a list of hosts that are currently alive. 
@@ -38,10 +39,15 @@ class FindHosts
 		threads = Array.new;
 		for ip in ips
 			threads << Thread.new(ip) { |tip|
-				out = `ping -qc1 -w 1 #{tip}`;
+				## Edited to check for windows or unix operating system to use proper ping command
+				if(/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+					out = `ping -n 2 -w 1 #{tip}`; #WINDOWS
+				else
+					out = `ping -qc2 -w 1 #{tip}`; #UNIX
+				end
+				
 				if not out =~ /100%/
-					# this would mean 0% packet loss, which since we only send one packet
-					# is good enough. 
+					# this would mean 0% packet loss
 					live_hosts << tip;
 				end;
 			};
