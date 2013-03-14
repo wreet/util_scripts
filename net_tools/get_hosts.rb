@@ -47,8 +47,7 @@ class FindHosts
 				end
 				
 				if not out =~ /100%/
-					# this would mean 0% packet loss, which since we only send one packet
-					# is good enough. 
+					# this would mean 0% packet loss
 					live_hosts << tip;
 				end;
 			};
