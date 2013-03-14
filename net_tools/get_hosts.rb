@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 ###############################################################################
-# Collect Hosts 0.1 by Chase Higins
+# Collect Hosts 0.1.2b by Chase Higins 
+# Windows Support by Jon Cornwell
 ###############################################################################
 # As the name would imply, this script will scan the local network and 
 # retrieve a list of hosts that are currently alive. 
