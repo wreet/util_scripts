@@ -38,7 +38,12 @@ class FindHosts
 		threads = Array.new;
 		for ip in ips
 			threads << Thread.new(ip) { |tip|
-				out = `ping -qc1 -w 1 #{tip}`;
+				if(/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+					out = `ping -n 2 -w 1 #{tip}`; #WINDOWS
+				else
+					out = `ping -qc2 -w 1 #{tip}`; #UNIX
+				end
+				
 				if not out =~ /100%/
 					# this would mean 0% packet loss, which since we only send one packet
 					# is good enough. 
