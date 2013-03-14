@@ -38,6 +38,7 @@ class FindHosts
 		threads = Array.new;
 		for ip in ips
 			threads << Thread.new(ip) { |tip|
+				## Edited to check for windows or unix operating system to use proper ping command
 				if(/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
 					out = `ping -n 2 -w 1 #{tip}`; #WINDOWS
 				else
