@@ -6,11 +6,13 @@
 # a range of hosts, to perform a port scan on. The scanner utilizes only TCP
 # at the moment, but will probably add udp soon. 
 ###############################################################################
-	#TODO:
-		# look into udp scan
-		# it is pretty obvious there is way too much threading going on here, and 
-			# it will cause issues with low resource machines doing scans on large
-			# port ranges, think 254 addresses * 65535 ports = 16645890 threads.
+#TODO:
+	# look into udp scan
+	# it is pretty obvious there is way too much threading going on here, and 
+		# it will cause issues with low resource machines doing scans on large
+		# port ranges, think 254 addresses * 65535 ports = 16645890 threads.
+	# speed improvements needed
+	# seems to not work with *BSD(at least my boxes)
 ###############################################################################
 
 require 'socket';
