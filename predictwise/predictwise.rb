@@ -59,7 +59,7 @@ class PredictWise
 		data = data.scan(/<td[^>]+>([\w\d\s.]+)/);	
 		# data[0] is event, data[1] is predictwise prediction, the one we want
 		h = {
-			:event => data[0],
+			:event => data[0][0],
 			:probability => data[1][0].strip
 		};
 		return h;
