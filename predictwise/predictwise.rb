@@ -12,7 +12,7 @@
 require 'open-uri';
 
 class PredictWise
-	def self.getPredictions(contract)
+	def self.getPrediction(contract)
 		# getPredictions is the most obviously important method, and can act as 
 		# an all-in-one retrieval tool for a contact
 		# first we need page
@@ -64,4 +64,16 @@ class PredictWise
 		};
 		return h;
 	end; # end getPredictionFromRow method
+
+	def self.sortEvents(events, type = nil);
+		# take a events list and sort it in the way specified
+		# if type is ommitted, events are sorted by probability, same if type is 'prob'
+		# if type is set to 'event_name', then the sort will be alphabetic by event title
+		if type == 'prob' or type == nil
+			sorted = events.sort_by { |h| h[:probability].to_i}.reverse;
+		elsif type == 'event_name'
+			sorted = events.sort_by { |h| h[:event]};
+		end;
+		return sorted;				
+	end; # end sortEvents method
 end; # end PredictWise class
